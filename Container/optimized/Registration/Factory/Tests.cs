@@ -21,7 +21,7 @@ namespace Unity.Specification.Registration.Factory
         public void Null_Null_Factory()
         {
             // Act
-            Container.RegisterFactory(null, null, (c,t,n)=> null, null);
+            Container.RegisterFactory(null, null, (c,t,n,o)=> null, null);
         }
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace Unity.Specification.Registration.Factory
         {
             // Arrange
             var value = new object();
-            Container.RegisterFactory(typeof(object), null, (c, t, n) => value, null);
+            Container.RegisterFactory(typeof(object), null, (c, t, n, o) => value, null);
 
             // Act
             var registration = Container.Registrations.First(r => typeof(object) == r.RegisteredType);
@@ -51,13 +51,13 @@ namespace Unity.Specification.Registration.Factory
         public void CanSetLifetime()
         {
             // Arrange
-            Container.RegisterFactory(typeof(object), null, (c, t, n) => null, FactoryLifetime.Singleton);
+            Container.RegisterFactory(typeof(object), null, (c, t, n, o) => null, new ContainerControlledLifetimeManager());
 
             // Act
             var registration = Container.Registrations.First(r => typeof(object) == r.RegisteredType);
 
             // Validate
-            Assert.IsInstanceOfType(registration.LifetimeManager, typeof(SingletonLifetimeManager));
+            Assert.IsInstanceOfType(registration.LifetimeManager, typeof(ContainerControlledLifetimeManager));
         }
 
         [TestMethod]
@@ -65,7 +65,7 @@ namespace Unity.Specification.Registration.Factory
         {
             // Arrange
             var value = new object();
-            Container.RegisterFactory(typeof(object), null, (c, t, n) => value, null);
+            Container.RegisterFactory(typeof(object), null, (c, t, n, o) => value, null);
 
             // Act
             var instance = Container.Resolve<object>();
@@ -79,7 +79,7 @@ namespace Unity.Specification.Registration.Factory
         {
             // Arrange
             var value = new object();
-            Container.RegisterFactory(typeof(object), Name, (c, t, n) => value, null);
+            Container.RegisterFactory(typeof(object), Name, (c, t, n, o) => value, null);
 
             // Act
             var instance = Container.Resolve<object>(Name);

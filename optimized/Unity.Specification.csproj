@@ -6,7 +6,7 @@
     <Copyright>Copyright © .NET Foundation and Contributors. All Rights Reserved</Copyright>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>package.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\package.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
   </PropertyGroup>
 

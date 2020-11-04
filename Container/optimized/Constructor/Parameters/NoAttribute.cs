@@ -92,7 +92,7 @@ namespace Unity.Specification.Constructor.Parameters
         public void NoAttributeWithDefaultNull()
         {
             // Arrange
-            Container.RegisterInstance(typeof(string), null);
+            Container.RegisterInstance(typeof(string), (object)null);
 
             // Act
             var result = Container.Resolve<NoAttributeWithDefaultNullCtor>();

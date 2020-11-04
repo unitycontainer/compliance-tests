@@ -38,7 +38,7 @@ namespace Unity.Specification.Resolution.Mapping
             var factory = new Foo();
 
             Container.RegisterType<Foo>();
-            Container.RegisterInstance(Name, instance, InstanceLifetime.Singleton);
+            Container.RegisterInstance(Name, instance, new ContainerControlledLifetimeManager());
             Container.RegisterFactory<Foo>(Legacy, (c, t, n) => factory);
 
             // Act

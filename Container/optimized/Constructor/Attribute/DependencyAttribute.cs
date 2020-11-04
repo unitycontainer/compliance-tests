@@ -48,7 +48,7 @@ namespace Unity.Specification.Constructor.Attribute
         {
             // Arrange
             Container.RegisterInstance(_data)
-                     .RegisterInstance(null, Name)
+                     .RegisterInstance((string)null, Name)
                      .RegisterInstance("OtherName", Name);
 
             // Act

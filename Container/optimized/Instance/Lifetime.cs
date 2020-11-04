@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using Unity.Lifetime;
 
 namespace Unity.Specification.Instance
 {
@@ -14,7 +14,7 @@ namespace Unity.Specification.Instance
             var child1 = Container.CreateChildContainer();
             var child2 = child1.CreateChildContainer();
 
-            Container.RegisterInstance(typeof(IService), null, service, InstanceLifetime.Singleton);
+            Container.RegisterInstance(typeof(IService), null, service, new ContainerControlledLifetimeManager());
 
 
             // Act/Verify
@@ -33,7 +33,7 @@ namespace Unity.Specification.Instance
             var child1 = Container.CreateChildContainer();
             var child2 = child1.CreateChildContainer();
 
-            child1.RegisterInstance(typeof(IService), null, service, InstanceLifetime.Singleton);
+            child1.RegisterInstance(typeof(IService), null, service, new ContainerControlledLifetimeManager());
 
 
             // Act/Verify

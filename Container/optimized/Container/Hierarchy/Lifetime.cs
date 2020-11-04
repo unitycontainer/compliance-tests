@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Lifetime;
 
 namespace Unity.Specification.Container.Hierarchy
 {
@@ -11,7 +12,7 @@ namespace Unity.Specification.Container.Hierarchy
         public void ResolveSignletonType_Directly_InRootContainer_THEN_InstanceIsCreatedInRootContainer_AND_SammeInstanceResolved_InAllChildContainers()
         {
             var rootContainer = GetContainer();
-            rootContainer.RegisterType(typeof(ISingletonService), typeof(SingletonService), TypeLifetime.Singleton);
+            rootContainer.RegisterType(typeof(ISingletonService), typeof(SingletonService), new ContainerControlledLifetimeManager());
 
             var rootContainerId = rootContainer.GetHashCode();
             var childContainer1 = rootContainer.CreateChildContainer();
@@ -33,7 +34,7 @@ namespace Unity.Specification.Container.Hierarchy
         public void ResolveSingletonType_Directly_InChildContainer_THEN_InstanceIsCreatedInRootContainer_AND_SammeInstanceResolved_InAllChildContainers()
         {
             var rootContainer = GetContainer();
-            rootContainer.RegisterType(typeof(ISingletonService), typeof(SingletonService), TypeLifetime.Singleton);
+            rootContainer.RegisterType(typeof(ISingletonService), typeof(SingletonService), new ContainerControlledLifetimeManager());
 
             var rootContainerId = rootContainer.GetHashCode();
             var childContainer1 = rootContainer.CreateChildContainer();
@@ -59,7 +60,7 @@ namespace Unity.Specification.Container.Hierarchy
         public void ResolveSingletonType_AsDependency_InRootContainer_THEN_ConsumerInstance_AND_SignletonInstance_CreatedInRootContainer()
         {
             Container.RegisterType(typeof(ISingletonConsumer), typeof(SingletonConsumer), TypeLifetime.Transient);
-            Container.RegisterType(typeof(ISingletonService), typeof(SingletonService), TypeLifetime.Singleton);
+            Container.RegisterType(typeof(ISingletonService), typeof(SingletonService), new ContainerControlledLifetimeManager());
 
             var rootContainerId = Container.GetHashCode();
             var consumerInstanceFromRootContainter = Container.Resolve<ISingletonConsumer>();
@@ -71,7 +72,7 @@ namespace Unity.Specification.Container.Hierarchy
         [TestMethod]
         public void ResolveSingletonType_AsDependency_InChildContainer_THEN_ConsumerInstance_CreatedInChildContiner_AND_SignletonInstance_CreatedInRootContainer()
         {
-            Container.RegisterType(typeof(ISingletonService), typeof(SingletonService), TypeLifetime.Singleton);
+            Container.RegisterType(typeof(ISingletonService), typeof(SingletonService), new ContainerControlledLifetimeManager());
 
             var childContainer1 = Container.CreateChildContainer()
                                            .RegisterType(typeof(ISingletonConsumer), typeof(SingletonConsumer), TypeLifetime.Transient);
@@ -91,7 +92,7 @@ namespace Unity.Specification.Container.Hierarchy
         [TestMethod]
         public void ResolveSingletonType_AsDependency_InChildContainer_THEN_ConsumerInstance_CreatedInChildContiner_AND_SignletonInstance_CreatedInRootContainer_Unregistered()
         {
-            Container.RegisterType(typeof(ISingletonService), typeof(SingletonService), TypeLifetime.Singleton);
+            Container.RegisterType(typeof(ISingletonService), typeof(SingletonService), new ContainerControlledLifetimeManager());
 
             var childContainer1 = Container.CreateChildContainer();
             var childContainer2 = childContainer1.CreateChildContainer();
@@ -113,7 +114,7 @@ namespace Unity.Specification.Container.Hierarchy
         {
             var rootContainer = GetContainer();
             rootContainer.RegisterType(typeof(ITestElement), typeof(TestElement));
-            rootContainer.RegisterType(typeof(ISingletonServiceWithDependency), typeof(SingletonServiceWithDependency), TypeLifetime.Singleton);
+            rootContainer.RegisterType(typeof(ISingletonServiceWithDependency), typeof(SingletonServiceWithDependency), new ContainerControlledLifetimeManager());
 
             var rootContainerId = rootContainer.GetHashCode();
 
@@ -127,7 +128,7 @@ namespace Unity.Specification.Container.Hierarchy
         {
             var rootContainer = GetContainer();
             rootContainer.RegisterType(typeof(ITestElement), typeof(TestElement));
-            rootContainer.RegisterType(typeof(ISingletonServiceWithDependency), typeof(SingletonServiceWithDependency), TypeLifetime.Singleton);
+            rootContainer.RegisterType(typeof(ISingletonServiceWithDependency), typeof(SingletonServiceWithDependency), new ContainerControlledLifetimeManager());
 
             var rootContainerId = rootContainer.GetHashCode();
 
@@ -143,7 +144,7 @@ namespace Unity.Specification.Container.Hierarchy
             var rootContainer = GetContainer();
             rootContainer.RegisterType(typeof(ITestElement), typeof(TestElement));
             rootContainer.RegisterType(typeof(ITestElementFactory), typeof(TestElementFactory));
-            rootContainer.RegisterType(typeof(ISingletonServiceWithFactory), typeof(SingletonServiceWithFactory), TypeLifetime.Singleton);
+            rootContainer.RegisterType(typeof(ISingletonServiceWithFactory), typeof(SingletonServiceWithFactory), new ContainerControlledLifetimeManager());
 
             var rootContainerId = rootContainer.GetHashCode();
 
@@ -160,7 +161,7 @@ namespace Unity.Specification.Container.Hierarchy
             var rootContainer = GetContainer();
             rootContainer.RegisterType(typeof(ITestElement), typeof(TestElement));
             rootContainer.RegisterType(typeof(ITestElementFactory), typeof(TestElementFactory));
-            rootContainer.RegisterType(typeof(ISingletonServiceWithFactory), typeof(SingletonServiceWithFactory), TypeLifetime.Singleton);
+            rootContainer.RegisterType(typeof(ISingletonServiceWithFactory), typeof(SingletonServiceWithFactory), new ContainerControlledLifetimeManager());
 
             var rootContainerId = rootContainer.GetHashCode();
 
@@ -178,7 +179,7 @@ namespace Unity.Specification.Container.Hierarchy
         public void DisposeRootContainer_WithSingleton_THEN_SingletonDisposed()
         {
             var rootContainer = GetContainer();
-            rootContainer.RegisterType(typeof(ISingletonService), typeof(SingletonService), TypeLifetime.Singleton);
+            rootContainer.RegisterType(typeof(ISingletonService), typeof(SingletonService), new ContainerControlledLifetimeManager());
 
             var instanceFromRootContainer = rootContainer.Resolve<ISingletonService>();
 
@@ -192,7 +193,7 @@ namespace Unity.Specification.Container.Hierarchy
         {
             var rootContainer = GetContainer();
 
-            rootContainer.RegisterType(typeof(ISingletonService), typeof(SingletonService), TypeLifetime.Singleton);
+            rootContainer.RegisterType(typeof(ISingletonService), typeof(SingletonService), new ContainerControlledLifetimeManager());
 
             var childContainer = rootContainer.CreateChildContainer().CreateChildContainer();
             var instanceFromChildContainer = childContainer.Resolve<ISingletonService>();
@@ -207,7 +208,7 @@ namespace Unity.Specification.Container.Hierarchy
             var rootContainer = GetContainer();
 
             rootContainer.RegisterType(typeof(ISingletonConsumer), typeof(SingletonConsumer), TypeLifetime.PerContainerTransient);
-            rootContainer.RegisterType(typeof(ISingletonService), typeof(SingletonService), TypeLifetime.Singleton);
+            rootContainer.RegisterType(typeof(ISingletonService), typeof(SingletonService), new ContainerControlledLifetimeManager());
 
             var childContainer = rootContainer.CreateChildContainer().CreateChildContainer();
 
@@ -225,7 +226,7 @@ namespace Unity.Specification.Container.Hierarchy
         {
             var rootContainer = GetContainer();
             rootContainer.RegisterType(typeof(ITestElement), typeof(TestElement), TypeLifetime.PerContainerTransient);
-            rootContainer.RegisterType(typeof(ISingletonServiceWithDependency), typeof(SingletonServiceWithDependency), TypeLifetime.Singleton);
+            rootContainer.RegisterType(typeof(ISingletonServiceWithDependency), typeof(SingletonServiceWithDependency), new ContainerControlledLifetimeManager());
 
             var rootContainerId = rootContainer.GetHashCode();
 
@@ -244,7 +245,7 @@ namespace Unity.Specification.Container.Hierarchy
             var rootContainer = GetContainer();
             rootContainer.RegisterType(typeof(ITestElement), typeof(TestElement));
             rootContainer.RegisterType(typeof(ITestElementFactory), typeof(TestElementFactory));
-            rootContainer.RegisterType(typeof(ISingletonServiceWithFactory), typeof(SingletonServiceWithFactory), TypeLifetime.Singleton);
+            rootContainer.RegisterType(typeof(ISingletonServiceWithFactory), typeof(SingletonServiceWithFactory), new ContainerControlledLifetimeManager());
 
             var rootContainerId = rootContainer.GetHashCode();
 

@@ -24,13 +24,13 @@ namespace Unity.Specification.Registration.Types
         public void CanSetLifetime()
         {
             // Arrange
-            Container.RegisterType(typeof(object), null, null, TypeLifetime.Singleton);
+            Container.RegisterType(typeof(object), null, null, new ContainerControlledLifetimeManager());
 
             // Act
             var registration = Container.Registrations.First(r => typeof(object) == r.RegisteredType);
 
             // Validate
-            Assert.IsInstanceOfType(registration.LifetimeManager, typeof(SingletonLifetimeManager));
+            Assert.IsInstanceOfType(registration.LifetimeManager, typeof(ContainerControlledLifetimeManager));
         }
 
     }

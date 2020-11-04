@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using Unity.Lifetime;
 
 namespace Unity.Specification.Factory.Resolution
 {
@@ -24,7 +24,7 @@ namespace Unity.Specification.Factory.Resolution
         [TestMethod]
         public void Factory_Singleton()
         {
-            Container.RegisterFactory<IService>((c, t, n) => new Service(), FactoryLifetime.Singleton);
+            Container.RegisterFactory<IService>((c, t, n) => new Service(), new ContainerControlledLifetimeManager());
 
             var service = Container.Resolve<IService>();
 

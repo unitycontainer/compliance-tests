@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Unity.Lifetime;
 
 namespace Unity.Specification.Lifetime
 {
@@ -22,7 +23,7 @@ namespace Unity.Specification.Lifetime
         public void PerContainer_Factory_Null()
         {
             // Arrange
-            Container.RegisterFactory<IService>(c => null, FactoryLifetime.Singleton);
+            Container.RegisterFactory<IService>(c => null, new ContainerControlledLifetimeManager());
 
             // Act
             var instance = Container.Resolve<IService>();
