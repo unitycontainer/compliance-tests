@@ -6,15 +6,6 @@ namespace Unity.Specification.Field.Injection
     public abstract partial class SpecificationTests
     {
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
-        public void None()
-        {
-            // Act
-            Container.RegisterType<ObjectWithThreeFields>(
-                Resolve.Field("Bogus Name"));
-        }
-
-        [TestMethod]
         public void ByName()
         {
             // Setup

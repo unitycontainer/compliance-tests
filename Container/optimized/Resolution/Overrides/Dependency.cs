@@ -202,7 +202,7 @@ namespace Unity.Specification.Resolution.Overrides
 
             // Verify
             Assert.AreSame(noOverride, defaultValue);
-            Assert.AreSame(noOverride, depValue);
+            Assert.AreSame(depOverride, depValue);
             Assert.AreSame(depOverride, propValue);
         }
 
@@ -221,7 +221,7 @@ namespace Unity.Specification.Resolution.Overrides
 
             // Verify
             Assert.AreSame(noOverride, defaultValue);
-            Assert.AreSame(noOverride, dependValue);
+            Assert.AreSame(depOverride, dependValue);
             Assert.AreSame(depOverride, fieldValue);
         }
 
@@ -240,7 +240,7 @@ namespace Unity.Specification.Resolution.Overrides
             
             // Verify
             Assert.AreSame(noOverride, defaultValue);
-            Assert.AreSame(noOverride, depValue);
+            Assert.AreSame(depOverride, depValue);
             Assert.AreSame(depOverride, propValue);
         }
     }

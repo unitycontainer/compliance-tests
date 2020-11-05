@@ -181,5 +181,32 @@ namespace Unity.Specification.Constructor.Injection
 
             public IEnumerable<V> Items { get; set; }
         }
+
+
+        public class ClassWithTreeConstructors
+        {
+            protected ClassWithTreeConstructors()
+            {
+
+            }
+
+            public ClassWithTreeConstructors(IUnityContainer container)
+            {
+                Value = container;
+            }
+
+            public ClassWithTreeConstructors(string name)
+            {
+                Value = name;
+            }
+
+            public ClassWithTreeConstructors(object value)
+            {
+                Value = value;
+            }
+
+            public object Value { get; }
+        }
+
     }
 }

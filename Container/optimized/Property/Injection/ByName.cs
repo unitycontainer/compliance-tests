@@ -19,15 +19,6 @@ namespace Unity.Specification.Property.Injection
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
-        public void None()
-        {
-            // Act
-            Container.RegisterType<ObjectWithThreeProperties>(
-                Resolve.Property("Bogus Name"));
-        }
-
-        [TestMethod]
         public void ByName()
         {
             // Setup

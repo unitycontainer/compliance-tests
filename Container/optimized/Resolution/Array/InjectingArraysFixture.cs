@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Net.NetworkInformation;
 using Unity.Injection;
 
 namespace Unity.Specification.Resolution.Array
@@ -95,6 +96,7 @@ namespace Unity.Specification.Resolution.Array
             Assert.AreSame(logger2, result.Loggers[2]);
         }
 
+        [Ignore("v6 no longer validates input")]
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void CreatingResolvedArrayParameterWithValuesOfNonCompatibleType()

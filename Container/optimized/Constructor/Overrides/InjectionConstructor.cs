@@ -14,7 +14,7 @@ namespace Unity.Specification.Constructor.Overrides
             var value = Container.Resolve<Service>(Override.Dependency<string>(_override));
 
             // Verify
-            Assert.AreSame(_data, value.Data);
+            Assert.AreSame(_override, value.Data);
         }
     }
 }
