@@ -74,9 +74,15 @@ namespace Unity.Specification.Container.Registrations
             var child = Container.CreateChildContainer()
                 .RegisterType<ILogger, MockLogger>("named");
 
-            var childRegistration = child.Registrations.Where(r => r.RegisteredType == typeof(ILogger)).First();
-            var parentRegistration =
-                Container.Registrations.Where(r => r.RegisteredType == typeof(ILogger)).FirstOrDefault();
+            var childRegistration = child.Registrations
+                                         .Cast<IContainerRegistration>()
+                                         .Where(r => r.RegisteredType == typeof(ILogger))
+                                         .First();
+            
+            var parentRegistration = Container.Registrations
+                                              .Cast<IContainerRegistration>()
+                                              .Where(r => r.RegisteredType == typeof(ILogger))
+                                              .FirstOrDefault();
 
             Assert.IsNull(parentRegistration);
             Assert.IsNotNull(childRegistration);

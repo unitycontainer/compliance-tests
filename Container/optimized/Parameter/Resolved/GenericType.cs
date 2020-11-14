@@ -5,6 +5,7 @@ namespace Unity.Specification.Parameter.Resolved
 {
     public abstract partial class SpecificationTests
     {
+        [Ignore("v6, No validation during registration")]
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void ProvidingConcreteTypeForGenericFails()

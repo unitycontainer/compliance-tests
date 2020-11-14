@@ -155,7 +155,7 @@ namespace Unity.Specification.Issues.Codeplex
             container.RegisterInstance<string>("a value");
 
             const int Threads = 40;
-            var barrier = new System.Threading.Barrier(Threads);
+            var barrier = new Barrier(Threads);
             var countdown = new CountdownEvent(Threads);
             var random = new Random();
             var errors = false;

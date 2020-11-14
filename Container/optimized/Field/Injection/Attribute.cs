@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Unity.Injection;
 
 namespace Unity.Specification.Field.Injection
 {
@@ -35,11 +36,29 @@ namespace Unity.Specification.Field.Injection
         }
 
         [TestMethod]
-        public void ResolveOverAttribute()
+        public void ResolveOverAttributeAny()
         {
             // Setup
             Container.RegisterType<ObjectWithAttributes>(
                 Resolve.Field(nameof(ObjectWithAttributes.Dependency)));
+
+            // Act
+            var result = Container.Resolve<ObjectWithAttributes>();
+
+            // Verify
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Dependency);
+            Assert.AreEqual(result.Dependency, Name1);
+            Assert.IsNull(result.Optional);
+        }
+
+
+        [TestMethod]
+        public void ResolveOverAttribute()
+        {
+            // Setup
+            Container.RegisterType<ObjectWithAttributes>(
+                new InjectionField(nameof(ObjectWithAttributes.Dependency), (string)null));
 
             // Act
             var result = Container.Resolve<ObjectWithAttributes>();

@@ -52,10 +52,29 @@ namespace Unity.Specification.Constructor.Injection
         }
 
         [TestMethod]
+        public virtual void ByCountGeneric()
+        {
+            // Arrange
+            Container.RegisterType<IService, Service>()
+                     .RegisterType<IService, ServiceOne>("one")
+                     .RegisterType<IService, ServiceTwo>("two");
+
+            Container.RegisterType(typeof(SampleType<>),
+                Invoke.Constructor(
+                    Resolve.Parameter((string)null),
+                    Resolve.Parameter()));
+
+            var instance = Container.Resolve<SampleType<object>>();
+
+            // Validate
+            Assert.AreEqual(2, instance.Ctor);
+            Assert.IsInstanceOfType(instance.Service, typeof(Service));
+        }
+
+        [TestMethod]
         public virtual void ByCountNamedGeneric()
         {
             // Arrange
-            #region inject_count_named_generic
             Container.RegisterType<IService, Service>()
                      .RegisterType<IService, ServiceOne>("one")
                      .RegisterType<IService, ServiceTwo>("two");
@@ -67,14 +86,9 @@ namespace Unity.Specification.Constructor.Injection
 
             var instance = Container.Resolve<SampleType<object>>();
 
-            // 2 == instance.Ctor
-            // typeof(Service) == instance.Service.GetType()
-
-            #endregion
-
             // Validate
             Assert.AreEqual(2, instance.Ctor);
-            Assert.IsTrue(typeof(Service) == instance.Service.GetType());
+            Assert.IsInstanceOfType(instance.Service, typeof(ServiceOne));
         }
 
         [TestMethod]

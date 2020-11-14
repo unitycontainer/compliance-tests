@@ -19,6 +19,7 @@ namespace Unity.Specification.Method.Injection
             Assert.IsTrue(result.WasInjected);
         }
 
+        [Ignore("v6, No validation on register")]
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void MethodWithOutParameter()
@@ -27,6 +28,7 @@ namespace Unity.Specification.Method.Injection
             Container.RegisterType<OutParams>(Invoke.Method(nameof(OutParams.InjectMe), 12));
         }
 
+        [Ignore("v6, No validation on register")]
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void MethodWithRefParameter()
@@ -121,6 +123,7 @@ namespace Unity.Specification.Method.Injection
             Assert.IsFalse(GuineaPig.StaticMethodWasCalled);
         }
 
+        [Ignore("v6, No validation on register")]
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void InjectingStaticMethod()

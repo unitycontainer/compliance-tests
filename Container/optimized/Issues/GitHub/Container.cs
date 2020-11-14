@@ -35,6 +35,7 @@ namespace Unity.Specification.Issues.GitHub
             Assert.IsNotNull(child2.Resolve<IService>());
         }
 
+        [Ignore("V6, Unnamed registrations are cumulative starting with v6")]
         [TestMethod]
         // https://github.com/unitycontainer/container/issues/160
         public void Issue_Container_160()
@@ -52,6 +53,7 @@ namespace Unity.Specification.Issues.GitHub
                     .RegisterType<IFoo, Foo>(new ContainerControlledLifetimeManager());
 
                 var registrations = child.Registrations
+                    .Cast<IContainerRegistration>()
                     .Where(r => r.RegisteredType == typeof(IFoo))
                     .ToList();
 
@@ -86,7 +88,7 @@ namespace Unity.Specification.Issues.GitHub
             // Verify
             Assert.AreSame(noOverride, defaultValue);
             Assert.AreSame(parOverride, parValue);
-            Assert.AreSame(noOverride, depValue);
+            Assert.AreSame(depOverride, depValue);
         }
 
         [TestMethod]
