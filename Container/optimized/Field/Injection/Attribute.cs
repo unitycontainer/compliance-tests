@@ -58,7 +58,7 @@ namespace Unity.Specification.Field.Injection
         {
             // Setup
             Container.RegisterType<ObjectWithAttributes>(
-                new InjectionField(nameof(ObjectWithAttributes.Dependency), (string)null));
+                new InjectionField(nameof(ObjectWithAttributes.Dependency), typeof(string), null));
 
             // Act
             var result = Container.Resolve<ObjectWithAttributes>();
