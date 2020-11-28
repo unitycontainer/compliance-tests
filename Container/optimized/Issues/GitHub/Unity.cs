@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Injection;
 using Unity.Lifetime;
-using Unity.Specification.Container.IsRegistered;
+using Unity.Specification.Registration.Types;
 
 namespace Unity.Specification.Issues.GitHub
 {

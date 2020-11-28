@@ -8,34 +8,6 @@ namespace Unity.Specification.Lifetime
     public abstract partial class SpecificationTests
     {
         [TestMethod]
-        public void Singleton_Instance_Null()
-        {
-            // Arrange
-            Container.RegisterInstance(typeof(IService), null, null, new ContainerControlledLifetimeManager());
-
-            // Act
-            var instance = Container.Resolve<IService>();
-
-            // Validate
-            Assert.IsNull(instance);
-            Assert.IsNull(Container.Resolve<IService>());
-        }
-
-        [TestMethod]
-        public void Singleton_Factory_Null()
-        {
-            // Arrange
-            Container.RegisterFactory<IService>(c => null, new ContainerControlledLifetimeManager());
-
-            // Act
-            var instance = Container.Resolve<IService>();
-
-            // Validate
-            Assert.IsNull(instance);
-            Assert.IsNull(Container.Resolve<IService>());
-        }
-
-        [TestMethod]
         public void Singleton_ResolveInRootContainer()
         {
             // Arrange
