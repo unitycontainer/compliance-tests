@@ -6,23 +6,6 @@ namespace Unity.Specification.Constructor.Injection
 {
     public abstract partial class SpecificationTests 
     {
-        public static IEnumerable<object[]> DefaultConstructorTestData
-        {
-
-            // Format:                     |TypeFrom,  |TypeTo,                                        |Name,      |TypeToResolve
-            get
-            {
-                yield return new object[] { null, typeof(object), null, typeof(object) };
-                yield return new object[] { null, typeof(TestClass), null, typeof(TestClass) };
-                yield return new object[] { null, typeof(GenericTestClass<int, string, object>), null, typeof(GenericTestClass<int, string, object>) };
-                yield return new object[] { null, typeof(object), "0", typeof(object) };
-                yield return new object[] { null, typeof(TestClass), "1", typeof(TestClass) };
-                yield return new object[] { null, typeof(GenericTestClass<,,>), "2", typeof(GenericTestClass<int, string, object>) };
-                yield return new object[] { null, typeof(GenericTestClass<int, string, object>), "3", typeof(GenericTestClass<int, string, object>) };
-                yield return new object[] { null, typeof(GenericTestClass<,,>), "4", typeof(GenericTestClass<object, string, object>) };
-            }
-        }
-
         public static IEnumerable<object[]> DefaultConstructorTestDataFailed
         {
             // Format:                      |TypeTo/TypeToResolve,        |Name
@@ -144,21 +127,6 @@ namespace Unity.Specification.Constructor.Injection
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeToResolve);
             Assert.IsTrue(validator?.Invoke(result) ?? true);
-        }
-
-        [DataTestMethod]
-        [DynamicData(nameof(DefaultConstructorTestData))]
-        public void Default(Type typeFrom, Type typeTo, string name, Type typeToResolve)
-        {
-            // Setup
-            Container.RegisterType(typeFrom, typeTo, name, null, Invoke.Constructor());
-
-            // Act
-            var result = Container.Resolve(typeToResolve, name);
-
-            // Verify
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeToResolve);
         }
 
 
