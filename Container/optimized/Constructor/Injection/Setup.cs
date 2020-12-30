@@ -5,9 +5,6 @@ namespace Unity.Specification.Constructor.Injection
 {
     public abstract partial class SpecificationTests : TestFixtureBase
     {
-        private string _data = "data";
-        private string _override = "override";
-
         [TestInitialize]
         public override void Setup()
         {
